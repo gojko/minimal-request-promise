@@ -1,0 +1,11 @@
+{
+  "name": "minimal-request-promise",
+  "version": "1.0.0",
+  "description": "no dependencies promise version of http request, handles trivial cases only (but then no deps)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT"
+}
