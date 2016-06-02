@@ -1,6 +1,6 @@
 {
   "name": "minimal-request-promise",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "no dependencies promise version of http request, handles trivial cases only (but then no deps)",
   "main": "index.js",
   "repository": {
