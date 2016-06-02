@@ -1,12 +1,21 @@
 {
   "name": "minimal-request-promise",
   "version": "1.0.1",
-  "description": "no dependencies promise version of http request, handles trivial cases only (but then no deps)",
+  "description": "A+ Promise interface to Node.js HTTPS request, with no dependencies",
   "main": "index.js",
+  "keywords": [
+    "promise",
+    "http",
+    "https",
+    "request",
+    "post",
+    "rest"
+  ],
+  "homepage": "https://github.com/gojko/minimal-request-promise",  
   "repository": {
     "type": "git",
     "url": "https://github.com/gojko/minimal-request-promise"
   },
-  "author": "Gojko Adzic",
+  "author": "Gojko Adzic <gojko@gojko.com> http://gojko.net",
   "license": "MIT"
 }
