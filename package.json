@@ -1,6 +1,6 @@
 {
   "name": "minimal-request-promise",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A+ Promise interface to Node.js HTTPS request, with no dependencies",
   "main": "index.js",
   "keywords": [
@@ -11,7 +11,7 @@
     "post",
     "rest"
   ],
-  "homepage": "https://github.com/gojko/minimal-request-promise",  
+  "homepage": "https://github.com/gojko/minimal-request-promise",
   "repository": {
     "type": "git",
     "url": "https://github.com/gojko/minimal-request-promise"
