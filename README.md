@@ -44,6 +44,19 @@ requestPromise(options).then(
 
 ```
 
+##Using with a different Promise library
+
+By default, this library uses the built-in `Promise` from Node.js. If you'd like to use a different A+ Promise library, just pass it in as the second argument. For example:
+
+```javascript
+var bluebird = require('bluebird'),
+  requestPromise = require('minimal-request-promise'),
+  options = {  
+   // some options here ...
+  };
+requestPromise(options, bluebird).then(report);
+```
+
 ##License
 
 MIT

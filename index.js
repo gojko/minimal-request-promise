@@ -1,7 +1,8 @@
-/*global module, Promise, require */
+/*global module, require, global */
 var https = require('https');
-module.exports = function (callOptions) {
+module.exports = function (callOptions, PromiseImplementation) {
 	'use strict';
+	var Promise = PromiseImplementation || global.Promise;
 	return new Promise(function (resolve, reject) {
 		var req = https.request(callOptions);
 
