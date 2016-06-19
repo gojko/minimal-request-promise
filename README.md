@@ -24,6 +24,8 @@ You can use the standard Node [HTTPS Request Options](https://nodejs.org/api/htt
 * `body`: string -- the content to include in the request body when posting
 * `resolveErrors`: boolean -- if true, HTTP error response codes will result in a resolved promise (instead of rejected). Only network errors will result in a rejected promise. If false (default), network errors and successful HTTP requests with an error response code will cause the promise to be rejected.
 
+If you want to execute a FORM POST, remember to add the [`Content-Length` header](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.13) as well. This library intentionally does not automatically add that, to keep the interface in line with standard Node.JS requests.
+
 ##Example
 
 ```javascript
