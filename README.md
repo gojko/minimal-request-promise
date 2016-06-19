@@ -1,9 +1,21 @@
 #Minimal Promise version of HTTPS request
 
+[![Build Status](https://travis-ci.org/gojko/minimal-request-promise.svg?branch=master)](https://travis-ci.org/gojko/minimal-request-promise)
+
 This is a wrapper for the standard HTTPS Node Request object, that provides an A+ Promise interface to request execution and automates the process of assembling the response body as a string. It can handle posting body contents, and automatically rejects the promise if the response code is not between 200 and 399. 
 
 The intent of this library is to wrap requests into a promise interface with minimal overhead, with no dependencies, and just expose the standard Node.js arguments. 
 It's not trying to be a fully-featured replacement for complex workflows, streaming etc. For more complex libraries that can provide all kind of workflows like that, see [request-promise](https://github.com/request/request-promise) and [got](https://github.com/sindresorhus/got).
+
+##Installation
+
+Install using NPM:
+
+```bash
+npm install minimal-request-promise
+```
+
+[![NPM](https://nodei.co/npm/minimal-request-promise.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/minimal-request-promise/)
 
 ##Usage
 
