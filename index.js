@@ -1,6 +1,6 @@
 /*global module, require, global */
 var https = require('https');
-module.exports = function (callOptions, PromiseImplementation) {
+function minimalRequestPromise(callOptions, PromiseImplementation) {
 	'use strict';
 	var Promise = PromiseImplementation || global.Promise;
 	return new Promise(function (resolve, reject) {
@@ -33,4 +33,36 @@ module.exports = function (callOptions, PromiseImplementation) {
 		}
 		req.end();
 	});
+};
+
+module.exports = minimalRequestPromise;
+
+module.exports.get = function (url, options, PromiseImplementation) {
+	'use strict';
+	var Promise = PromiseImplementation || global.Promise;
+	return Promise.resolve(url)
+		.then(function(url) { return require('url').parse(url); })
+	  .then(function(parsedUrl) {
+			options = options || {};
+			options.method = 'GET';
+			var keys = Object.keys(parsedUrl);
+			keys.forEach(function(key) { options[key] = parsedUrl[key] });
+
+			return minimalRequestPromise(options, Promise);
+		});
+};
+
+module.exports.post = function (url, options, PromiseImplementation) {
+	'use strict';
+	var Promise = PromiseImplementation || global.Promise;
+	return Promise.resolve(url)
+		.then(function(url) { return require('url').parse(url); })
+	  .then(function(parsedUrl) {
+			options = options || {};
+			options.method = 'POST';
+			var keys = Object.keys(parsedUrl);
+			keys.forEach(function(key) { options[key] = parsedUrl[key] });
+
+			return minimalRequestPromise(options, Promise);
+		});
 };

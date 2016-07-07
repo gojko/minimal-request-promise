@@ -43,3 +43,51 @@ describe('Minimal Request Promise', function () {
 		expect(https.request.calls[0].body).toEqual(['XYZ']);
 	});
 });
+describe('Minimal Request Promise Get method', function () {
+	'use strict';
+	beforeEach(function () {
+		fakeRequest.install();
+	});
+	afterEach(function () {
+		fakeRequest.uninstall();
+	});
+	it('rejects in case url is not provided', function() {
+		underTest.get().catch(function(err) {
+			expect(err instanceof TypeError).toBeTruthy();
+		});
+	});
+	it('resolves when the underlying request responds', function (done) {
+		underTest.get('https://npmjs.org').then(function (response) {
+			expect(response.statusCode).toEqual('200');
+			expect(response.statusMessage).toEqual('OK');
+			expect(response.body).toEqual('Never Program Mad');
+		}).then(done);
+		setTimeout(function () {
+			https.request.calls[0].respond('200', 'OK', 'Never Program Mad');
+		}, 100);
+	});
+});
+describe('Minimal Request Promise POST method', function () {
+	'use strict';
+	beforeEach(function () {
+		fakeRequest.install();
+	});
+	afterEach(function () {
+		fakeRequest.uninstall();
+	});
+	it('rejects in case url is not provided', function() {
+		underTest.post().catch(function(err) {
+			expect(err instanceof TypeError).toBeTruthy();
+		});
+	});
+	it('resolves when the underlying request responds', function (done) {
+		underTest.post('https://npmjs.org', { body: 'test' }).then(function (response) {
+			expect(response.statusCode).toEqual('200');
+			expect(response.statusMessage).toEqual('OK');
+			expect(response.body).toEqual('Never Program Mad');
+		}).then(done);
+		setTimeout(function () {
+			https.request.calls[0].respond('200', 'OK', 'Never Program Mad');
+		}, 100);
+	});
+});
