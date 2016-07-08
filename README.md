@@ -63,7 +63,7 @@ requestPromise(options).then(
 In addition to using the standard Node.js request parameters, you can also generate basic parameters from URLS for GET and POST using the helper methods. The helper methods are `.get` and `.post`, and they expect the following arguments: 
 
 * `url`: `string`, a URL to GET or POST to
-* `options`: _(optional)_ `object`, key-value map of additional options, described in the [Usage](#Usage) section
+* `options`: _(optional)_ `object`, key-value map of additional options, described in the [Usage](#usage) section
 * `Promise`: _(optional)_ `Function`, an alternate Promise implementation. See [Using with a different Promise library](#using-with-a-different-promise-library).
 
 Example:
