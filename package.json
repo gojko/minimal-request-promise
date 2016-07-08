@@ -22,7 +22,7 @@
   "author": "Gojko Adzic <gojko@gojko.com> http://gojko.net",
   "license": "MIT",
   "devDependencies": {
-    "fake-http-request": "^1.2.0",
+    "fake-http-request": "^1.3.0",
     "jasmine": "^2.4.1",
     "jasmine-spec-reporter": "^2.4.0"
   }

@@ -1,4 +1,4 @@
-/*global beforeEach, afterEach, describe, it, expect, require */
+/*global beforeEach, afterEach, describe, it, expect, require, jasmine */
 var fakeRequest = require('fake-http-request'),
 	underTest = require('../index'),
 	https = require('https');
@@ -42,52 +42,80 @@ describe('Minimal Request Promise', function () {
 		underTest({body: 'XYZ'});
 		expect(https.request.calls[0].body).toEqual(['XYZ']);
 	});
-});
-describe('Minimal Request Promise Get method', function () {
-	'use strict';
-	beforeEach(function () {
-		fakeRequest.install();
-	});
-	afterEach(function () {
-		fakeRequest.uninstall();
-	});
-	it('rejects in case url is not provided', function() {
-		underTest.get().catch(function(err) {
-			expect(err instanceof TypeError).toBeTruthy();
+	['GET', 'POST'].forEach(function (method) {
+		describe(method + ' helper', function () {
+			var helper;
+			beforeEach(function () {
+				helper = underTest[method.toLowerCase()];
+			});
+			it('rejects in case a url is not provided', function () {
+				helper().catch(function (err) {
+					expect(err instanceof TypeError).toBeTruthy();
+				});
+			});
+			it('decomposes the URL into params', function (done) {
+				https.request.pipe(function (args) {
+					expect(args).toEqual(jasmine.objectContaining({
+						method: method,
+						hostname: 'npmjs.org',
+						path: '/'
+					}));
+					done();
+				});
+				helper('https://npmjs.org');
+			});
+			it('resolves when the underlying request responds', function (done) {
+				https.request.pipe(function () {
+					this.respond('200', 'OK', 'Never Program Mad');
+				});
+				helper('https://npmjs.org').then(function (response) {
+					expect(response.statusCode).toEqual('200');
+					expect(response.statusMessage).toEqual('OK');
+					expect(response.body).toEqual('Never Program Mad');
+				}).then(done, done.fail);
+			});
+			it('allows options to override method', function (done) {
+				https.request.pipe(function (args) {
+					expect(args).toEqual(jasmine.objectContaining({
+						method: 'ZOOM',
+						hostname: 'npmjs.org',
+						path: '/'
+					}));
+					done();
+				});
+				helper('https://npmjs.org', {method: 'ZOOM'});
+			});
+			it('allows options to override URL components', function (done) {
+				https.request.pipe(function (args) {
+					expect(args).toEqual(jasmine.objectContaining({
+						method: method,
+						hostname: 'npmjs.org',
+						path: '/bing'
+					}));
+					done();
+				});
+				helper('https://npmjs.org', {path: '/bing'});
+			});
+			it('passes the promise implementation to the request generator', function () {
+				var FakeImplementation = function () {
+						var self = this;
+						self.resolve = function () {
+							return this;
+						};
+						self.then = function () {
+							return this;
+						};
+						self.catch = function () {
+							return this;
+						};
+					},
+					result;
+				FakeImplementation.resolve = function () {
+					return new FakeImplementation();
+				};
+				result = helper('https://npmjs.org', {}, FakeImplementation);
+				expect(FakeImplementation.prototype.isPrototypeOf(result)).toBeTruthy();
+			});
 		});
-	});
-	it('resolves when the underlying request responds', function (done) {
-		underTest.get('https://npmjs.org').then(function (response) {
-			expect(response.statusCode).toEqual('200');
-			expect(response.statusMessage).toEqual('OK');
-			expect(response.body).toEqual('Never Program Mad');
-		}).then(done);
-		setTimeout(function () {
-			https.request.calls[0].respond('200', 'OK', 'Never Program Mad');
-		}, 100);
-	});
-});
-describe('Minimal Request Promise POST method', function () {
-	'use strict';
-	beforeEach(function () {
-		fakeRequest.install();
-	});
-	afterEach(function () {
-		fakeRequest.uninstall();
-	});
-	it('rejects in case url is not provided', function() {
-		underTest.post().catch(function(err) {
-			expect(err instanceof TypeError).toBeTruthy();
-		});
-	});
-	it('resolves when the underlying request responds', function (done) {
-		underTest.post('https://npmjs.org', { body: 'test' }).then(function (response) {
-			expect(response.statusCode).toEqual('200');
-			expect(response.statusMessage).toEqual('OK');
-			expect(response.body).toEqual('Never Program Mad');
-		}).then(done);
-		setTimeout(function () {
-			https.request.calls[0].respond('200', 'OK', 'Never Program Mad');
-		}, 100);
 	});
 });
