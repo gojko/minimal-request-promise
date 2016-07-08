@@ -53,6 +53,11 @@ describe('Minimal Request Promise', function () {
 					expect(err instanceof TypeError).toBeTruthy();
 				});
 			});
+			it('rejects in case method is overridden', function () {
+				helper('https://npmjs.org', { method: 'PUT' }).catch(function (err) {
+					expect(err instanceof Error).toBeTruthy();
+				});
+			});
 			it('decomposes the URL into params', function (done) {
 				https.request.pipe(function (args) {
 					expect(args).toEqual(jasmine.objectContaining({
@@ -73,17 +78,6 @@ describe('Minimal Request Promise', function () {
 					expect(response.statusMessage).toEqual('OK');
 					expect(response.body).toEqual('Never Program Mad');
 				}).then(done, done.fail);
-			});
-			it('allows options to override method', function (done) {
-				https.request.pipe(function (args) {
-					expect(args).toEqual(jasmine.objectContaining({
-						method: 'ZOOM',
-						hostname: 'npmjs.org',
-						path: '/'
-					}));
-					done();
-				});
-				helper('https://npmjs.org', {method: 'ZOOM'});
 			});
 			it('allows options to override URL components', function (done) {
 				https.request.pipe(function (args) {
