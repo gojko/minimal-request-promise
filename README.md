@@ -21,8 +21,8 @@ npm install minimal-request-promise
 
 You can use the standard Node [HTTPS Request Options](https://nodejs.org/api/https.html#https_https_request_options_callback), with the following additional options:
 
-* `body`: string -- the content to include in the request body when posting
-* `resolveErrors`: boolean -- if true, HTTP error response codes will result in a resolved promise (instead of rejected). Only network errors will result in a rejected promise. If false (default), network errors and successful HTTP requests with an error response code will cause the promise to be rejected.
+* `body`: `string`, the content to include in the request body when posting
+* `resolveErrors`: `boolean`, if true, HTTP error response codes will result in a resolved promise (instead of rejected). Only network errors will result in a rejected promise. If false (default), network errors and successful HTTP requests with an error response code will cause the promise to be rejected.
 
 If you want to execute a FORM POST, remember to add the [`Content-Length` header](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.13) as well. This library intentionally does not automatically add that, to keep the interface in line with standard Node.JS requests.
 
@@ -60,7 +60,11 @@ requestPromise(options).then(
 
 ##GET and POST method shortcuts
 
-Beside standard node request, there are shortcuts for GET and POST methods, they are parsing URL and presetting method. You can pass any additional options supported by _Minimal Request Promise_ library as a second param and custom Promise implementation as a third param.
+In addition to using the standard Node.js request parameters, you can also generate basic parameters from URLS for GET and POST using the helper methods. The helper methods are `.get` and `.post`, and they expect the following arguments: 
+
+* `url`: `string`, a URL to GET or POST to
+* `options`: _(optional)_ `object`, key-value map of additional options, described in the [Usage](#Usage) section
+* `Promise`: _(optional)_ `Function`, an alternate Promise implementation. See [Using with a different Promise library](#using-with-a-different-promise-library).
 
 Example:
 
