@@ -52,6 +52,8 @@ var https = require('https'),
 				.then(function (url) {
 					return urlParser.parse(url);
 				}).then(function (parsedUrl) {
+					if (additionalOptions && additionalOptions.method && additionalOptions.method !== method)
+						throw new Error('Method can\'t be overridden');
 					var options = {};
 					mergeObjects(options, parsedUrl);
 					options.method = method;
