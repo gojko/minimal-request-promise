@@ -1,14 +1,17 @@
 /*global beforeEach, afterEach, describe, it, expect, require, jasmine */
 var fakeRequest = require('fake-http-request'),
 	underTest = require('../index'),
-	https = require('https');
+	https = require('https'),
+	http = require('http');
 describe('Minimal Request Promise', function () {
 	'use strict';
 	beforeEach(function () {
 		fakeRequest.install();
+		fakeRequest.install('http');
 	});
 	afterEach(function () {
 		fakeRequest.uninstall();
+		fakeRequest.uninstall('http');
 	});
 	it('sends the args to the underlying request object', function () {
 		underTest({host: 'x'});
@@ -41,6 +44,11 @@ describe('Minimal Request Promise', function () {
 	it('writes the body if provided', function () {
 		underTest({body: 'XYZ'});
 		expect(https.request.calls[0].body).toEqual(['XYZ']);
+	});
+	it('uses http for port 80 requests', function () {
+		underTest({port: 80, body: 'XYZ'});
+		expect(http.request.calls.length).toBe(1);
+		expect(https.request.calls.length).toBe(0);
 	});
 	['GET', 'POST'].forEach(function (method) {
 		describe(method + ' helper', function () {
@@ -89,6 +97,12 @@ describe('Minimal Request Promise', function () {
 					done();
 				});
 				helper('https://npmjs.org', {path: '/bing'});
+			});
+			it('uses http for http protocol requests', function () {
+				helper('http://npmjs.org').then(function () {
+					expect(http.request.calls.length).toBe(1);
+					expect(https.request.calls.length).toBe(0);
+				});
 			});
 			it('passes the promise implementation to the request generator', function () {
 				var FakeImplementation = function () {
