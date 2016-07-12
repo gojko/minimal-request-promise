@@ -1,11 +1,17 @@
 /*global module, require, global */
 var https = require('https'),
+	http = require('http'),
 	urlParser = require('url'),
 	minimalRequestPromise = function (callOptions, PromiseImplementation) {
 		'use strict';
 		var Promise = PromiseImplementation || global.Promise;
 		return new Promise(function (resolve, reject) {
-			var req = https.request(callOptions);
+			var req;
+			if (callOptions.port === 80 || callOptions.protocol === 'http:') {
+				req = http.request(callOptions);
+			} else {
+				req = https.request(callOptions);
+			}
 
 			req.on('response', function (res) {
 				var dataChunks = [];
