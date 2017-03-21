@@ -1,4 +1,4 @@
-#Minimal Promise version of HTTPS request
+# Minimal Promise version of HTTPS request
 
 [![Build Status](https://travis-ci.org/gojko/minimal-request-promise.svg?branch=master)](https://travis-ci.org/gojko/minimal-request-promise)
 
@@ -7,7 +7,7 @@ This is a wrapper for the standard HTTPS Node Request object, that provides an A
 The intent of this library is to wrap requests into a promise interface with minimal overhead, with no dependencies, and just expose the standard Node.js arguments.
 It's not trying to be a fully-featured replacement for complex workflows, streaming etc. For more complex libraries that can provide all kind of workflows like that, see [request-promise](https://github.com/request/request-promise) and [got](https://github.com/sindresorhus/got).
 
-##Installation
+## Installation
 
 Install using NPM:
 
@@ -17,7 +17,7 @@ npm install minimal-request-promise
 
 [![NPM](https://nodei.co/npm/minimal-request-promise.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/minimal-request-promise/)
 
-##Usage
+## Usage
 
 You can use the standard Node [HTTPS Request Options](https://nodejs.org/api/https.html#https_https_request_options_callback), with the following additional options:
 
@@ -26,7 +26,7 @@ You can use the standard Node [HTTPS Request Options](https://nodejs.org/api/htt
 
 If you want to execute a FORM POST, remember to add the [`Content-Length` header](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.13) as well. This library intentionally does not automatically add that, to keep the interface in line with standard Node.JS requests.
 
-##Example
+## Example
 
 ```javascript
 
@@ -58,7 +58,7 @@ requestPromise(options).then(
 
 ```
 
-##GET and POST method shortcuts
+## GET and POST method shortcuts
 
 In addition to using the standard Node.js request parameters, you can also generate basic parameters from URLS for GET and POST using the helper methods. The helper methods are `.get` and `.post`, and they expect the following arguments: 
 
@@ -92,7 +92,7 @@ requestPromise.post('https://graph.facebook.com/v2.6/me/messages?access_token=' 
 );
 ```
 
-##Using with a different Promise library
+## Using with a different Promise library
 
 By default, this library uses the built-in `Promise` from Node.js. If you'd like to use a different A+ Promise library, just pass it in as the second argument. For example:
 
@@ -105,6 +105,6 @@ var bluebird = require('bluebird'),
 requestPromise(options, bluebird).then(report);
 ```
 
-##License
+## License
 
 MIT
