@@ -12,6 +12,21 @@ var https = require('https'),
 			} else {
 				req = https.request(callOptions);
 			}
+			if (callOptions.timeout) {
+				req.setTimeout(callOptions.timeout, function () {
+					var e = new Error('ETIMEDOUT');
+					e.code = 'ETIMEDOUT';
+					e.errno = 'ETIMEDOUT';
+					e.syscall = 'connect';
+					e.address = callOptions.hostname,
+					e.port = callOptions.port
+					if (callOptions.resolveErrors) {
+						resolve(e);
+					} else {
+						reject(e);
+					}
+				});
+			}
 
 			req.on('response', function (res) {
 				var dataChunks = [];
