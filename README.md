@@ -23,6 +23,11 @@ You can use the standard Node [HTTPS Request Options](https://nodejs.org/api/htt
 
 * `body`: `string`, the content to include in the request body when posting
 * `resolveErrors`: `boolean`, if true, HTTP error response codes will result in a resolved promise (instead of rejected). Only network errors will result in a rejected promise. If false (default), network errors and successful HTTP requests with an error response code will cause the promise to be rejected.
+* `timeout`: `number`, Integer containing the number of milliseconds to wait for a
+server to send response headers (and start the response body) before aborting
+the request. Note that if the underlying TCP connection cannot be established,
+the OS-wide TCP connection timeout will overrule the `timeout` option ([the
+default in Linux can be anywhere from 20-120 seconds][linux-timeout]).
 
 If you want to execute a FORM POST, remember to add the [`Content-Length` header](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.13) as well. This library intentionally does not automatically add that, to keep the interface in line with standard Node.JS requests.
 
@@ -60,7 +65,7 @@ requestPromise(options).then(
 
 ## GET and POST method shortcuts
 
-In addition to using the standard Node.js request parameters, you can also generate basic parameters from URLS for GET and POST using the helper methods. The helper methods are `.get` and `.post`, and they expect the following arguments: 
+In addition to using the standard Node.js request parameters, you can also generate basic parameters from URLS for GET and POST using the helper methods. The helper methods are `.get` and `.post`, and they expect the following arguments:
 
 * `url`: `string`, a URL to GET or POST to
 * `options`: _(optional)_ `object`, key-value map of additional options, described in the [Usage](#usage) section
