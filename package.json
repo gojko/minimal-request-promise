@@ -1,6 +1,6 @@
 {
   "name": "minimal-request-promise",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "A+ Promise interface to Node.js HTTPS request, with no dependencies",
   "main": "index.js",
   "keywords": [
