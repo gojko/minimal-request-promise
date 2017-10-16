@@ -14,6 +14,9 @@
   "scripts": {
     "test": "node spec/support/jasmine-runner.js"
   },
+  "files": [
+    "index.js"
+  ],
   "homepage": "https://github.com/gojko/minimal-request-promise",
   "repository": {
     "type": "git",
