@@ -63,9 +63,9 @@ requestPromise(options).then(
 
 ```
 
-## GET and POST method shortcuts
+## GET, POST, PUT and DELETE method shortcuts
 
-In addition to using the standard Node.js request parameters, you can also generate basic parameters from URLS for GET and POST using the helper methods. The helper methods are `.get` and `.post`, and they expect the following arguments:
+In addition to using the standard Node.js request parameters, you can also generate basic parameters from URLS for GET and POST using the helper methods. The helper methods are `.get`, `.post`, `.put` and `.delete` and they expect the following arguments:
 
 * `url`: `string`, a URL to GET or POST to
 * `options`: _(optional)_ `object`, key-value map of additional options, described in the [Usage](#usage) section
@@ -104,7 +104,7 @@ By default, this library uses the built-in `Promise` from Node.js. If you'd like
 ```javascript
 var bluebird = require('bluebird'),
   requestPromise = require('minimal-request-promise'),
-  options = {  
+  options = {
    // some options here ...
   };
 requestPromise(options, bluebird).then(report);
