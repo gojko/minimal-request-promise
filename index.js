@@ -18,8 +18,8 @@ var https = require('https'),
 					e.code = 'ETIMEDOUT';
 					e.errno = 'ETIMEDOUT';
 					e.syscall = 'connect';
-					e.address = callOptions.hostname,
-					e.port = callOptions.port
+					e.address = callOptions.hostname;
+					e.port = callOptions.port;
 					if (callOptions.resolveErrors) {
 						resolve(e);
 					} else {
