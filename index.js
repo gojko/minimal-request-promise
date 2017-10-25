@@ -88,3 +88,5 @@ module.exports = minimalRequestPromise;
 
 module.exports.get = createMethodHelper('GET');
 module.exports.post = createMethodHelper('POST');
+module.exports.put = createMethodHelper('PUT');
+module.exports.delete = createMethodHelper('DELETE');
