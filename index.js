@@ -30,14 +30,16 @@ var https = require('https'),
 
 			req.on('response', function (res) {
 				var dataChunks = [];
-				res.setEncoding('utf8');
+
+				if(!callOptions.skipEncoding) res.setEncoding('utf8');
+
 				res.on('data', function (chunk) {
 					dataChunks.push(chunk);
 				});
 				res.on('end', function () {
 					var response = {
 						headers: res.headers,
-						body: dataChunks.join(''),
+						body: callOptions.skipEncoding ? Buffer.concat(dataChunks) : dataChunks.join(''),
 						statusCode: res.statusCode,
 						statusMessage: res.statusMessage
 					};
