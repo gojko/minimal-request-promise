@@ -90,3 +90,7 @@ module.exports.get = createMethodHelper('GET');
 module.exports.post = createMethodHelper('POST');
 module.exports.put = createMethodHelper('PUT');
 module.exports.delete = createMethodHelper('DELETE');
+module.exports.patch = createMethodHelper('PATCH');
+module.exports.connect = createMethodHelper('CONNECT');
+module.exports.head = createMethodHelper('HEAD');
+module.exports.trace = createMethodHelper('TRACE');
