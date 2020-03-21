@@ -63,11 +63,11 @@ requestPromise(options).then(
 
 ```
 
-## GET, POST, PUT and DELETE method shortcuts
+## GET, POST, PUT, DELETE, PATCH, CONNECT, HEAD and TRACE method shortcuts
 
-In addition to using the standard Node.js request parameters, you can also generate basic parameters from URLS for GET and POST using the helper methods. The helper methods are `.get`, `.post`, `.put` and `.delete` and they expect the following arguments:
+In addition to using the standard Node.js request parameters, you can also generate basic parameters from URLS for GET and POST using the helper methods. The helper methods are `.get`, `.post`, `.put`, `.delete`, `.patch`, `.connect`, `.head` and `.trace` and they expect the following arguments:
 
-* `url`: `string`, a URL to GET, POST, PUT or DELETE to
+* `url`: `string`, a URL to GET, POST, PUT, DELETE, PATCH, CONNECT, HEAD or TRACE to
 * `options`: _(optional)_ `object`, key-value map of additional options, described in the [Usage](#usage) section
 * `Promise`: _(optional)_ `Function`, an alternate Promise implementation. See [Using with a different Promise library](#using-with-a-different-promise-library).
 

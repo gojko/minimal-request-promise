@@ -50,7 +50,7 @@ describe('Minimal Request Promise', function () {
 		expect(http.request.calls.length).toBe(1);
 		expect(https.request.calls.length).toBe(0);
 	});
-	['GET', 'POST', 'PUT', 'DELETE'].forEach(function (method) {
+	['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'CONNECT', 'HEAD', 'TRACE'].forEach(function (method) {
 		describe(method + ' helper', function () {
 			var helper;
 			beforeEach(function () {
